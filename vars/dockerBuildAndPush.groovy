@@ -1,8 +1,8 @@
 def call(String credId,String dockerImageName ){
     withCredentials([userPassword(
         credentialsId: "${credId}",
-        variableusername: "${dockerUser}",
-        variablepassword: "${dockerPass}"
+        usernameVariable: "${dockerUser}",
+        passwordVariable: "${dockerPass}"
     )]){
         sh '''
         echo "Building image: ${dockerImageName}:build-${env.BUILD_NUMBER}"
@@ -16,3 +16,4 @@ def call(String credId,String dockerImageName ){
     }
 
 }
+
