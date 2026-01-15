@@ -1,10 +1,10 @@
-def call(String dockerImageName, int keep =1){
-    sh '''
+def call(String imageName, int keepImages = 2) {
+    sh """
+        echo "Keeping latest ${keepImages} images for ${imageName} and removing older ones"
 
-
-echo "keeping the latest ${keep} images for ${dockerImageName} and removing older ones"
-docker images ${dockerImageName} --format "{{.ID}}"
-| tail -n +$((keep + 1))
-| xargs -r docker rmi -f
-    '''
+        docker images ${imageName} --format '{{.ID}}' | \
+        awk '!seen[\$0]++' | \
+        tail -n +$((keepImages + 1)) | \
+        xargs -r docker rmi -f
+    """
 }
