@@ -9,10 +9,11 @@ sh '''
                     sudo apt update -y
                     sudo apt install -y fontconfig openjdk-21-jre
                     java -version
-                    sudo systemctl restart jenkins
+                    
                  fi   
                  
              '''
 
 
 }
+
