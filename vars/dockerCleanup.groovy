@@ -4,8 +4,9 @@ def call(String imageName, int keepImages = 2) {
 
         docker images ${imageName} --format '{{.ID}}' | \
         awk '!seen[\\$0]++' | \
-        tail -n +\\$((keepImages + 1)) | \
+        tail -n +$((startFrom)) | \
         xargs -r docker rmi -f
     """
 }
+
 
