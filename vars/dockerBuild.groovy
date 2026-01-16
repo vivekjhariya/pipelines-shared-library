@@ -8,5 +8,8 @@ def call(String dockerImageName){
    docker build -t \$IMAGE_TAG . 
    echo "docker image created \$IMAGE_TAG"
 
+   # generate env docker tage
+   env.IMAGE_TAG="${dockerImageName}:build-${env.BUILD_NUMBER}"
+
   '''
 }
