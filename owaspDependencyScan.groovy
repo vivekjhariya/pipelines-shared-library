@@ -17,5 +17,5 @@ def call(String owaspDepsName) {
     pattern: '**/dependency-check-report/dependency-check-report.xml'
   )
 
-  echo " OWASP Dependency-Check scan completed"
+  echo " OWASP Dependency-Check scan complete"
 }
