@@ -4,9 +4,9 @@ def call(){
   sh """
   set -e
   TIMESTAMP=\$(date +%Y%m%d-%H%M%S)
-  FS_REPORT=trivy-fs-report-$\TIMESTAMP.txt
+  FS_REPORT=trivy-fs-report-\$TIMESTAMP.txt
   trivy fs . > \$FS_REPORT
-  echo "report generated \$FS_REPORT"
+  echo "report generates \$FS_REPORT"
 
   """
 }
