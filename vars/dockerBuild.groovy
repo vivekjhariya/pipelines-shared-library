@@ -1,15 +1,18 @@
 def call(String dockerImageName){
 
+      def imageTag = "${dockerImageName}:build-${env.BUILD_NUMBER}"
+
+
   echo "build docker image..."
-  sh '''
+  sh """
 
   set -e
-   IMAGE_TAG=${dockerImageName}:build-${env.BUILD_NUMBER}
-   docker build -t \$IMAGE_TAG . 
-   echo "docker image created \$IMAGE_TAG"
+   docker build -t ${imageTag} . 
+   echo "docker image created ${imageTag}"
 
-   # generate env docker tage
-   env.IMAGE_TAG="${dockerImageName}:build-${env.BUILD_NUMBER}"
+  
 
-  '''
+  """
+     env.IMAGE_TAG= imageTag
+
 }
