@@ -1,4 +1,12 @@
 def call(){
   echo "Scanning file system..."
-  sh "trivy fs . > trivy-fs-report.txt"
+
+  sh '''
+  set -e
+  TIMESTAMP=\$(date + "%Y%m%d-%H%M%S")
+  FS_REPORT="trivy-fs-report-${TIMESTAMP}.txt"
+  sh "trivy fs . > \$FS_REPORT
+  echo "report generated \$FS_REPORT"
+
+  '''
 }
