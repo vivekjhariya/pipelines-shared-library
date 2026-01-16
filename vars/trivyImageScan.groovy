@@ -1,4 +1,4 @@
-def call(String imageName){
+def call(){
 
    echo "Scanning Docker image..."
 
@@ -6,8 +6,9 @@ def call(String imageName){
 
   set -e
    TIMESTAMP=\$(date+ "%Y%m%d-%H%M%S")
-   REPORT_NAME="trivy-image-report-${imageName}-\${TIMESTAMP}.txt"
-   trivy image --format table ${imageName} > \$REPORT_NAME
+   SAFE_TAG=\${IMAGE_TAG//[:\\/]_}
+   REPORT_NAME="trivy-image-report-${SAFE_TAG}-\${TIMESTAMP}.txt"
+   trivy image --format table \$IMAGE_TAG > \$REPORT_NAME
 
    echo "report genertaed: \$REPORT_NAME"
   '''
