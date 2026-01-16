@@ -11,8 +11,8 @@ def call(Map config = [:]) {
   withSonarQubeEnv(credentialsId: token, installationName: installation) {
     sh """
       ${scannerHome}/bin/sonar-scanner \
-        -Dsonar.projectKey=${key} \
-        -Dsonar.projectName=${name}
+        -Dsonar.projectKey="${key}" \
+        -Dsonar.projectName="${name}"
     """
   }
 
