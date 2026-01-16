@@ -9,19 +9,21 @@ def call(String credId, String dockerImageName) {
     ]) {
 
         sh """
-            echo "Building image: ${dockerImageName}:build-${env.BUILD_NUMBER}"
+            set -e
 
-            docker build -t ${dockerImageName}:build-${env.BUILD_NUMBER} .
+             SOURCE_IMAGE=${dockerImageName}:build-${env.BUILD_NUMBER}
+             TARGET_IMAGE=\$DOCKER_USER/${dockerImageName}:build-${env.BUILD_NUMBER}
 
+            echo "try to dockerHub loging...."
             echo "\$DOCKER_PASS" | docker login -u "\$DOCKER_USER" --password-stdin
+             echo "image tagging"
+            docker tag \$SOURCE_IMAGE \$TARGET_IMAGE
 
-            docker tag ${dockerImageName}:build-${env.BUILD_NUMBER} \
-            \$DOCKER_USER/${dockerImageName}:build-${env.BUILD_NUMBER}
-
-            docker push \$DOCKER_USER/${dockerImageName}:build-${env.BUILD_NUMBER}
+            docker push \$TARGET_IMAGE
         """
     }
 }
+
 
 
 
